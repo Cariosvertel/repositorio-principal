@@ -1,0 +1,51 @@
+name: Sync PULL_REQUEST_TEMPLATE.md to other repos
+
+on:
+  push:
+    paths:
+      - '.github/PULL_REQUEST_TEMPLATE.md'
+      - '.github/pull_request_template.md'
+      - '.github/workflows/PULL_REQUEST_TEMPLATE.md'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v3
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "Cariosvertel Bot"
+          git config --global user.email "bot@cariosvertel.com"
+
+      - name: Sync with target repos
+        env:
+          GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        run: |
+          REPOS=(
+            "realay-flutter"
+            "dash.app-flutter"
+            "redux-proliant"
+            "mr-bumper-backend"
+            "hphp-app"
+            "hphp-android"
+            "flutter-growth-app"
+            "ctg-conecta-frontend-1"
+            "ctg-conecta-backend"
+            "gm-proyectos"
+          )
+
+          for REPO in "${REPOS[@]}"; do
+            echo "🔁 Sincronizando con $REPO..."
+            git clone https://$GH_TOKEN@github.com/Cariosvertel/$REPO.git
+            cp -v .github/PULL_REQUEST_TEMPLATE.md $REPO/.github/ 2>/dev/null || true
+            cp -v .github/pull_request_template.md $REPO/.github/ 2>/dev/null || true
+            cp -v .github/workflows/PULL_REQUEST_TEMPLATE.md $REPO/.github/workflows/ 2>/dev/null || true
+            cd $REPO
+            git add .github/PULL_REQUEST_TEMPLATE.md .github/pull_request_template.md .github/workflows/PULL_REQUEST_TEMPLATE.md 2>/dev/null || true
+            git commit -m "chore(sync): updated PR template from main repo" || echo "No hay cambios en $REPO"
+            git push origin main || echo "⚠️ Falló el push en $REPO"
+            cd ..
+            rm -rf $REPO
+          done
