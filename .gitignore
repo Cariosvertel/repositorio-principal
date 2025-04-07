@@ -1,0 +1,23 @@
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos temporales y de logs
+*.log
+*.tmp
+
+# Entornos y dependencias
+node_modules/
+.env
+dist/
+build/
+.idea/
+.vscode/
+
+# Ignora todo excepto los archivos que quieres sincronizar
+*
+!.github/
+!.github/PULL_REQUEST_TEMPLATE.md
+!.github/pull_request_template.md
+!.github/workflows/
+!.github/workflows/PULL_REQUEST_TEMPLATE.md
