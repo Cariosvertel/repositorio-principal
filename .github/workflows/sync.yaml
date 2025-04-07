@@ -24,15 +24,6 @@ jobs:
           GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
           REPOS=(
-            "realay-flutter"
-            "dash.app-flutter"
-            "redux-proliant"
-            "mr-bumper-backend"
-            "hphp-app"
-            "hphp-android"
-            "flutter-growth-app"
-            "ctg-conecta-frontend-1"
-            "ctg-conecta-backend"
             "gm-proyectos"
           )
 
