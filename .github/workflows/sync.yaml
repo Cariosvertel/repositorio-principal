@@ -24,7 +24,7 @@ jobs:
           GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
           REPOS=(
-            "gm-proyectos"
+            "realay-flutter""
           )
 
           for REPO in "${REPOS[@]}"; do
