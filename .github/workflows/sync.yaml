@@ -24,7 +24,16 @@ jobs:
           GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
           REPOS=(
+            "mr-bumper"
+            "hphp-ios"
+            "dash.app-flutter"
             "redux-proliant"
+            "mr-bumper-backend"
+            "hphp-app"
+            "hphp-android"
+            "flutter-growth-app"
+            "ctg-conecta-backend"
+            "gm-proyectos"
           )
 
           for REPO in "${REPOS[@]}"; do
