@@ -94,4 +94,4 @@
 :: Google API credentials need to be configured in the settings file to test this change.
 :: Make sure to have the correct credentials before testing.
 
-test de prueba #3
+<!-- Test de sincronización exitosa -->
