@@ -93,11 +93,3 @@
 :: Example:
 :: Google API credentials need to be configured in the settings file to test this change.
 :: Make sure to have the correct credentials before testing.
-
-:: -----------------------------------------------------------------------------
-
-:: Additional Notes
-:: (Any extra information reviewers may need, such as dependencies, configurations, or potential side effects.)
-:: Example:
-:: Google API credentials need to be configured in the settings file to test this change.
-:: Make sure to have the correct credentials before testing.
