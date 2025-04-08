@@ -1,9 +1,39 @@
+name: Sync PR templates to other repos
+
+on:
+  push:
+    paths:
+      - '.github/PULL_REQUEST_TEMPLATE.md'
+      - '.github/pull_request_template.md'
+      - '.github/workflows/PULL_REQUEST_TEMPLATE.md'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v3
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "Cariosvertel Bot"
+          git config --global user.email "bot@cariosvertel.com"
+
       - name: Sync with target repos
         env:
           GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
           REPOS=(
+            "realay-flutter"
+            "dash.app-flutter"
             "redux-proliant"
+            "mr-bumper-backend"
+            "hphp-app"
+            "hphp-android"
+            "flutter-growth-app"
+            "ctg-conecta-frontend-1"
+            "ctg-conecta-backend"
+            "gm-proyectos"
           )
 
           for REPO in "${REPOS[@]}"; do
@@ -15,7 +45,6 @@
             cd $REPO
 
             git add -A
-
             git commit -m "chore(sync): updated PR template from main repo" || echo "No hay cambios en $REPO"
             git push origin main || echo "⚠️ Falló el push en $REPO"
             cd ..
