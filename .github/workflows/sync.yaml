@@ -2,6 +2,10 @@ name: Sync PR templates to other repos
 
 on:
   push:
+    branches:
+      - main
+      - master
+      - development
     paths:
       - '.github/PULL_REQUEST_TEMPLATE.md'
       - '.github/pull_request_template.md'
@@ -19,26 +23,29 @@ jobs:
           git config --global user.name "Cariosvertel Bot"
           git config --global user.email "bot@cariosvertel.com"
 
-      - name: Sync with target repos
+      - name: Sync with target repos (multi-org)
         env:
           GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
-          REPOS=(
-            "mr-bumper"
-            "hphp-ios"
-            "dash.app-flutter"
-            "redux-proliant"
-            "mr-bumper-backend"
-            "hphp-app"
-            "hphp-android"
-            "flutter-growth-app"
-            "ctg-conecta-backend"
-            "gm-proyectos"
+          declare -A REPOS_ORGS=(
+            [realay-flutter]=Realay-AI
+            [dash.app-flutter]=Cariosvertel
+            [redux-proliant]=Cariosvertel
+            [mr-bumper-backend]=Cariosvertel
+            [hphp-app]=oneGregWiley
+            [hphp-android]=Cariosvertel
+            [flutter-growth-app]=Cariosvertel
+            [ctg-conecta-frontend-1]=jmunozwigilabs
+            [ctg-conecta-backend]=Cariosvertel
+            [gm-proyectos]=Cariosvertel
+            [mr-bumper]=Cariosvertel
+            [hphp-ios]=oneGregWiley
           )
 
-          for REPO in "${REPOS[@]}"; do
-            echo "🔁 Sincronizando con $REPO..."
-            git clone https://$GH_TOKEN@github.com/Cariosvertel/$REPO.git
+          for REPO in "${!REPOS_ORGS[@]}"; do
+            ORG=${REPOS_ORGS[$REPO]}
+            echo "🔁 Sincronizando con $ORG/$REPO..."
+            git clone https://$GH_TOKEN@github.com/$ORG/$REPO.git
             cp -v .github/PULL_REQUEST_TEMPLATE.md $REPO/.github/ 2>/dev/null || true
             cp -v .github/pull_request_template.md $REPO/.github/ 2>/dev/null || true
             cp -v .github/workflows/PULL_REQUEST_TEMPLATE.md $REPO/.github/workflows/ 2>/dev/null || true
