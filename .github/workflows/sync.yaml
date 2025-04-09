@@ -53,7 +53,11 @@ jobs:
 
             git add -A
             git commit -m "chore(sync): updated PR template from main repo" || echo "No hay cambios en $REPO"
-            git push origin main || echo "⚠️ Falló el push en $REPO"
+            
+            CURRENT_BRANCH=$(git symbolic-ref --short HEAD)
+            echo "📤 Haciendo push a la rama $CURRENT_BRANCH..."
+            git push origin "$CURRENT_BRANCH" || echo "⚠️ Falló el push en $REPO"
+            
             cd ..
             rm -rf $REPO
           done
