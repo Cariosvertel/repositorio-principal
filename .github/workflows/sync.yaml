@@ -34,7 +34,7 @@ jobs:
             [mr-bumper-backend]=Cariosvertel
             [hphp-app]=oneGregWiley
             [hphp-android]=Cariosvertel
-            [flutter-growth-app]=Cariosvertel
+            # [flutter-growth-app]=Cariosvertel
             [ctg-conecta-frontend-1]=jmunozwigilabs
             [ctg-conecta-backend]=Cariosvertel
             [gm-proyectos]=Cariosvertel
